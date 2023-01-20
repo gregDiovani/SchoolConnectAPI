@@ -1,66 +1,168 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
+# Sekolah API
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Project demo membuat sebuah <i>RESTFUL API<i> untuk keperluan sekolah menggunakan laravel
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## API Reference
 
-## Learning Laravel
+#### Get semua data nilai siswa - HTTP Response Code: 200
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```http
+  GET api/nilai
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```javascript
+"nama": "Data Nilai Siswa",
+    "data": [
+        {
+            "kd_nilai": 141,
+            "nis": "7101-633-266",
+            "kd_matpel": "KD060",
+            "nilai_p": "63",
+            "nilai_k": "83",
+            "semester": "8",
+            "tapel": "1982",
+            "created_at": "2023-01-20 14:51:12",
+            "updated_at": "2023-01-20 14:51:12",
+            "nama_siswa": "Dr. Bruce Littel",
+            "nama_matpel": "Kimia",
+            "kd_kompentensi": "KD004",
+            "nama_kompentensi": "RPL",
+            "prog_keahlian": "Teknik Komputer dan Informatika"
+        },
 
-## Laravel Sponsors
+  }
+  
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+#### Get data nilai siswa bedasarkan NIS - HTTP Response Code: 200
 
-## Contributing
+```http
+  GET /api/nilai/${nis}
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `nis`      | `string` | **Required**. No induk siswa |
 
-## Code of Conduct
+```javascript
+{
+    "nama": "Data nilai siswa bedasarkan NIS",
+    "status": "Success",
+    "data": {
+        "kd_nilai": 110,
+        "nis": "8684-308-081",
+        "kd_matpel": "KD027",
+        "nilai_p": "70",
+        "nilai_k": "88",
+        "semester": "11",
+        "tapel": "1995",
+        "created_at": "2023-01-20 14:52:11",
+        "updated_at": "2023-01-20 15:59:37"
+    }
+}
+  
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+#### Post nilai siswa - HTTP Response Code: 201
 
-## Security Vulnerabilities
+```http
+  POST api/nilai
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+|  | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `kd_nilai` | `string` | **Required**. kode_nilai |
+| `nis` | `string` | **Required**. field dari NIS di kolom nis tabel siswa |
+| `kd_matpel` | `string` | **Required**. field dari kd_matpel dari table matpel |
+| `nilai_p` | `string` | **Required**. nilai pelajaran |
+| `nilai_k` | `string` | **Required**. nilai pratikum |
+| `semester` | `string` | **Required**. semester |
+| `tapel` | `string` | **Required** tahun pelajaran  |
 
-## License
+```javascript
+{
+    "nama": "Data Nilai Siswa",
+    "data": {
+        "nis": "7101-633-266",
+        "kd_matpel": "KD060",
+        "nilai_p": "90",
+        "nilai_k": "75",
+        "semester": "8",
+        "tapel": "20162018",
+        "updated_at": "2023-01-20T17:23:55.000000Z",
+        "created_at": "2023-01-20T17:23:55.000000Z",
+        "kd_nilai": 946
+    }
+}
+  
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+#### Update nilai siswa bedsarkan kd_nilai - HTTP Response Code: 204
+
+```http
+  PUT api/nilai{kd_nilai}
+```
+
+|  | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `kd_nilai` | `string` | **Required**. kode_nilai |
+| `nis` | `string` | **Required**. field dari NIS di kolom nis tabel siswa |
+| `kd_matpel` | `string` | **Required**. field dari kd_matpel dari table matpel |
+| `nilai_p` | `numeric` | **Required**. nilai pelajaran |
+| `nilai_k` | `numeric` | **Required**. nilai pratikum |
+| `semester` | `numeric` | **Required**. semester |
+| `tapel` | `string` | **Required** tahun pelajaran  |
+
+```javascript
+{
+    "status": "Data Nilai Siswa bedasarkan NIS berhasil diperharui",
+    "data": {
+        "kd_nilai": 110,
+        "nis": "8684-308-081",
+        "kd_matpel": "KD027",
+        "nilai_p": "70",
+        "nilai_k": "88",
+        "semester": "11",
+        "tapel": "1995",
+        "created_at": "2023-01-20T14:52:11.000000Z",
+        "updated_at": "2023-01-20T15:59:37.000000Z"
+    }
+}
+  
+```
+
+#### Delete data nilai siswa bedasarkan kd_nilai - HTTP Response Code: 204
+
+```http
+  DELETE /api/nilai/${nis}
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `kd_nilai`      | `string` | **Required**. Kode_nilai |
+
+```javascript
+{
+    "status": "success",
+    "message": "data nilai siswa  berhasil dihapus",
+    "data": {
+        "kd_nilai": 946,
+        "nis": "7101-633-266",
+        "kd_matpel": "KD060",
+        "nilai_p": "90",
+        "nilai_k": "75",
+        "semester": "8",
+        "tapel": "20162018",
+        "created_at": "2023-01-20T17:23:55.000000Z",
+        "updated_at": "2023-01-20T17:23:55.000000Z"
+    }
+}
+  
+```
+
